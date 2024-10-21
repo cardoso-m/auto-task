@@ -17,3 +17,27 @@ exports.createTask = async (req, res) => {
         res.status(400).send(err)
     }
 }
+
+exports.getTasks = async (req, res) => {
+    try {
+        var tasks = await db('task')
+                            .select('*')
+            res.status(200).send(tasks)
+    } catch (err) {
+        res.status(400).send(err)
+    }
+}
+
+exports.deleteTask = async (req, res) => {
+    var id = req.params.id
+
+    try {
+        await db('task')
+                .where({
+                    "id": id
+                }).del()
+        res.status(200).send('Tarefa excluída!')
+    } catch (err) {
+        res.status(400).send(err)
+    }
+}
