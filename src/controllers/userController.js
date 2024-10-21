@@ -61,18 +61,18 @@ exports.deleteUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     var id = req.params.id
-    var {name, email} = req.body
+    var {name, email, password, role} = req.body
 
     try {
         await db('user')
                 .where({'id': id})
                     .update({
                         name: name,
-                        email: email
+                        email: email,
+                        role: role
                     })
         res.status(200).send('Usuário editado')
     } catch (err) {
         res.status(400).send(err)
     }
-
 }
