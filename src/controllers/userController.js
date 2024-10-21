@@ -58,3 +58,21 @@ exports.deleteUser = async (req, res) => {
         res.status(400).send(err)
     }
 }
+
+exports.updateUser = async (req, res) => {
+    var id = req.params.id
+    var {name, email} = req.body
+
+    try {
+        await db('user')
+                .where({'id': id})
+                    .update({
+                        name: name,
+                        email: email
+                    })
+        res.status(200).send('Usuário editado')
+    } catch (err) {
+        res.status(400).send(err)
+    }
+
+}
